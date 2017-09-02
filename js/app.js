@@ -8,24 +8,50 @@ var Enemy = function(x,y,speed) {
     //in the image folder (already provided)
     // Setting the Enemy initial location (you need to implement)
     // Setting the Enemy speed (you need to implement)
-    // var i = 1;
+    var i = 0;
+    Enemy.i=++i;
     this.speed =speed;
     this.sprite = 'images/enemy-bug.png';
     this.x=x;
     this.y=y;
-    console.log("----------");
+    console.log("Enemy"+Enemy.i);
+
+};
+
+//Rest position for Enemies
+Enemy.prototype.reset = function() {
+  this.x=0;
+  // this.y=50;
+};
+Enemy.prototype.checkCollisions = function(Player) {
+if((Enemy.x>5) && (Enemy.y>220)){
+  Player.reset();
+  console.log("---Die---");
+ }
+
+ 
 };
 
 // Update the enemy's position, required method for game
 // Parameter: dt, a time delta between ticks
+
 Enemy.prototype.update = function(dt) {
+
 // You should multiply any movement by the dt parameter
 // which will ensure the game runs at the same speed for
 // all computers.
-// Enemy.x=this.x* dt;
-// Enemy.y=this.y* dt;
+var ramdom =Math.random()*4;
+// var ramdom =Math.random()*10;
+  dt= 3  ;
+   //dt=3;
+  //  this.x += this.speed* dt+ramdom+(ramdom);
+   this.x += this.speed+ramdom* dt;
+   if(this.x > 500 ){
+     //console.log("inside if-");
+     this.reset();
+      }
 
-
+   //sconsole.log("Enemy-(X)"+this.x+"Enemy-(Y)"+this.y);
 };
 
 // Draw the enemy on the screen, required method for game
@@ -41,20 +67,45 @@ var Player = function(x,y,speed) {
     this.sprite = 'images/char-boy.png';
     this.x=x;
     this.y=y;
-    console.log("----------");
+    console.log("Player 1");
 };
 
 Player.prototype.handleInput =function(direction){
 
-if(direction  == 'right'){this.y=70;}
-if(direction  == 'left'){this.y=-70;}
-if(direction  == 'up'){this.x=70;}
-if(direction  == 'down'){this.x=-70;}
+if(direction  == 'right'){  console.log("(X-)"+this.x+"(Y--)"+this.y);this.x=this.x+5 * this.speed;}
+if(direction  == 'left'){  console.log("(X-)"+this.x+"(Y--)"+this.y);this.x=this.x-5 *this.speed;}
+// if(direction  == 'up'){this.y=-5;}
+if(direction  == 'up'){  console.log("(X-)"+this.x+"(Y--)"+this.y);this.y=this.y-5 *this.speed;}
+if(direction  == 'down'){  console.log("(X-)"+this.x+"(Y--)"+this.y);this.y=this.y+5 *this.speed;}
+// if(this.x==560 && this.y==430){
+//   this.reset();}
+  // if(this.y>430){
+  //   this.reset();
+  //               }
+  //(X-)-70(Y--)340
+  if(this.x>410){
+    this.reset();
+                }
+                if((this.x<-70)){
+                // if((this.x<-70) || (this.y>340)){
+                  this.reset();
+                              }
+                              if(this.y<-20){
+                                this.reset();
+                                            }
+                                            if(this.y>430){
+                                              this.reset();
+                                                          }
 };
 Player.prototype.update = function() {
-  // this.x* dt;
-  // this.y* dt;
 
+  dt= 10;
+  this.x* dt;
+  this.y* dt;
+};
+Player.prototype.reset = function() {
+  this.x=200;
+  this.y=430;
 };
 Player.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
@@ -76,15 +127,11 @@ document.addEventListener('keyup', function(e) {
     player.handleInput(allowedKeys[e.keyCode]);
 });
 
-var enemy = new Enemy(5,50,3);
+var enemy  = new Enemy (5,50,3);
 var enemy1 = new Enemy(5,120,2);
-var enemy2 = new Enemy(5,220,1);
+var enemy2 = new Enemy(5,220,4);
 // var enemy = new Enemy(-50, 121, 3);
-var player = new Player(100, 400, 3);
-// player.handleInput();
- var allEnemies = [];
+var player = new Player(200, 430, 9);
+var allEnemies = [];
+
  allEnemies.push(enemy ,enemy1 ,enemy2);
-//enemy.render();
-//enemy.update();
-// render();
-// updateEntities();
