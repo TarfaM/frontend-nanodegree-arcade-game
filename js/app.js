@@ -4,8 +4,8 @@ var Enemy = function(x, y, speed) {
     this.sprite = 'images/enemy-bug.png';
     this.x = x;
     this.y = y;
-    this.height = 101;
-    this.width = 171;
+    this.height = 90;
+    this.width = 90;
 };
 
 //Rest position for Enemies
@@ -14,10 +14,10 @@ Enemy.prototype.reset = function() {
 };
 Enemy.prototype.checkCollisions = function() {
 
-    if (player.x < enemy.x + enemy.width &&
-        player.x + player.width > enemy.x &&
-        player.y < enemy.y + enemy.height &&
-        player.height + player.y > enemy.y) {
+    if (player.x < this.x + this.width &&
+        player.x + player.width > this.x &&
+        player.y < this.y + this.height &&
+        player.height + player.y > this.y) {
         player.reset();
 
     }
@@ -50,8 +50,8 @@ var Player = function(x, y, speed) {
     this.sprite = 'images/char-boy.png';
     this.x = x;
     this.y = y;
-    this.width = 101;
-    this.height = 171;
+    this.width = 5;
+    this.height = 5;
 };
 
 Player.prototype.handleInput = function(direction) {
@@ -109,8 +109,8 @@ document.addEventListener('keyup', function(e) {
     player.handleInput(allowedKeys[e.keyCode]);
 });
 //Declaring Variables ..
-var enemy = new Enemy(5, 50, 3);
-var enemy1 = new Enemy(5, 120, 2);
+var enemy = new Enemy(5, 50, 1);
+var enemy1 = new Enemy(5, 120, 1);
 var enemy2 = new Enemy(5, 220, 4);
 var player = new Player(200, 430, 9);
 var allEnemies = [];
